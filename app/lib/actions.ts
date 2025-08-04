@@ -35,27 +35,52 @@ export type State = {
   message?: string | null;
 };
 
-// Database functions commented out - using placeholder data instead
-// These would be used when connected to a real database
+// Database functions - placeholder implementations for demo
+// These return mock responses since we're using placeholder data
 
-/* 
 export async function createInvoice(prevState: State, formData: FormData) {
-  // Database creation logic would go here
+  const validatedFields = CreateInvoice.safeParse({
+    customerId: formData.get("customerId"),
+    amount: formData.get("amount"),
+    status: formData.get("status"),
+  });
+
+  // If form validation fails, return errors early. Otherwise, continue.
+  if (!validatedFields.success) {
+    return {
+      errors: validatedFields.error.flatten().fieldErrors,
+      message: 'Missing Fields. Failed to Create Invoice.',
+    };
+  }
+
+  // Mock success response since we're using placeholder data
   return {
-    message: 'Feature not available with placeholder data.',
+    message: 'Demo Mode: Invoice creation is not available with placeholder data.',
   };
 }
 
 export async function updateInvoice(id: string, formData: FormData) {
-  // Database update logic would go here
-  throw new Error('Feature not available with placeholder data.');
+  const validatedFields = UpdateInvoice.safeParse({
+    customerId: formData.get("customerId"),
+    amount: formData.get("amount"),
+    status: formData.get("status"),
+  });
+
+  if (!validatedFields.success) {
+    throw new Error('Invalid form data.');
+  }
+
+  // Mock implementation - redirect back to invoices page
+  revalidatePath("/dashboard/invoices");
+  redirect("/dashboard/invoices");
 }
 
 export async function deleteInvoice(id: string) {
-  // Database deletion logic would go here
-  throw new Error('Feature not available with placeholder data.');
+  // Mock implementation - just revalidate the page
+  // In demo mode, deletion is not actually performed
+  revalidatePath("/dashboard/invoices");
+  return;
 }
-*/
 
 // Authentication actions - these work with placeholder data
 export async function authenticate(
